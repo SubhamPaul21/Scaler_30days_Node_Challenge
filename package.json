@@ -1,0 +1,12 @@
+{
+  "name": "scaler_30days_node_challenge",
+  "version": "1.0.0",
+  "description": "This is repo where I submit Scaler's 30 Days Node.js challenge problems every day!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

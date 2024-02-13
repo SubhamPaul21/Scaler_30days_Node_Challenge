@@ -5,7 +5,6 @@ const WebSocket = require('ws');
 
 // Setting up a simple Express.js http server instance on which we will mount our socket server
 const server = http.createServer(app);
-
 app.get('/', (req, res) => {
     return res.send("<b>Welcome to the WebSocket Integration Tutorial. Go to /websocket to establish a WebSocket connection</b>");
 })
@@ -27,6 +26,11 @@ function setupWebSocket(server) {
 
         listenMessageEvents(ws);
         sendNotificationEvents(ws);
+
+        ws.on('close', () => {
+            console.log(`Connection Disconnected`);
+            server.closeAllConnections()
+        })
     })
 
 }

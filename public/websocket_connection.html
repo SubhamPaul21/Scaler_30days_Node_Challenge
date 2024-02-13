@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Integration</title>
+</head>
+
+<body>
+    <h2>Welcome to WebSocket endpoint!</h2>
+    <h3>You can send message to the client as a <b>message event</b>.</h3>
+    <h3>You can receive message from a client as a <b>notification event</b>.</h3>
+    <script>
+        const wsc = new WebSocket('ws://127.0.0.1:3000');
+
+        // Send message as an event to server-side
+        wsc.onopen = () => {
+            wsc.send("Hello from the Client side!");
+        }
+
+        // Set up a notification event listener
+        wsc.onmessage = (message) => {
+            console.log(`Notification Received: ${message.data}`);
+        }
+    </script>
+</body>
+
+</html>

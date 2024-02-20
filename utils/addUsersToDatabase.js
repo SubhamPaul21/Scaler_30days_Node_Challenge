@@ -1,5 +1,5 @@
 const { connectToMongoDB } = require('./connectToMongoDB');
-const { User, User_Validated } = require('../models/user.model');
+const { User, User_Validated, UserWithAge } = require('../models/user.model');
 
 /**
  * Adds a new user to the MongoDB database
@@ -12,6 +12,27 @@ async function addUserToDatabase(user) {
 
         if (isConnectedToDatabase) {
             const newUser = new User(user);
+            await newUser.save();
+            console.log("User Added to Database");
+        } else {
+            console.log("Could not add User to Database because of some error!");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/**
+ * Adds a new user with age to the MongoDB database
+ * @param {Object} user - User object with properties username and email
+ */
+async function addUserWithAgeToDatabase(user) {
+    // Your implementation here
+    try {
+        const isConnectedToDatabase = await connectToMongoDB();
+
+        if (isConnectedToDatabase) {
+            const newUser = new UserWithAge(user);
             await newUser.save();
             console.log("User Added to Database");
         } else {
@@ -44,12 +65,20 @@ async function addUserWithValidation(user) {
     }
 }
 
-const user = {
-    name: "john_doe",
-    email: "john.doe@gmail.com",
-}
+// const user = {
+//     name: "john_doe",
+//     email: "john.doe@gmail.com",
+// }
 
-addUserWithValidation(user);
+// addUserWithValidation(user);
+
+const user = {
+    name: "Sammy",
+    age: 28,
+}
+addUserWithAgeToDatabase(user);
+
 
 exports.addUserToDatabase = addUserToDatabase;
 exports.addUserWithValidation = addUserWithValidation;
+exports.addUserWithAgeToDatabase = addUserWithAgeToDatabase;

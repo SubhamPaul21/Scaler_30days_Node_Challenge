@@ -26,7 +26,8 @@ async function connectToMongoDB() {
                 console.log("Mongo DB Disconnected!");
             })
 
-        await mongoose.connect('mongodb://127.0.0.1:27017/scalerDatabase');
+        // await mongoose.connect('mongodb://127.0.0.1:27017/scalerDatabase');
+        await mongoose.connect('mongodb://127.0.0.1:27017/userDatabase');
     } catch (error) {
         console.log(error);
         return false;

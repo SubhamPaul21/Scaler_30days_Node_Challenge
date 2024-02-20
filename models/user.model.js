@@ -30,9 +30,23 @@ const userSchema_validated = new mongoose.Schema({
     }
 })
 
+// Initialize User Schema with Age
+const userWithAgeSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, "User Name is required"],
+    },
+    age: {
+        type: Number,
+        required: [true, "User Age is required"],
+    },
+})
+
 // Initialize User Model
 // const User = mongoose.model('User', userSchema);
-const User_Validated = mongoose.model('User', userSchema_validated);
+// const User_Validated = mongoose.model('User', userSchema_validated);
+const UserWithAge = mongoose.model('User', userWithAgeSchema);
 
 // exports.User = User;
-exports.User_Validated = User_Validated;
+// exports.User_Validated = User_Validated;
+exports.UserWithAge = UserWithAge;

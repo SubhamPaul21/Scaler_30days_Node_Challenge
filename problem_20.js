@@ -22,10 +22,13 @@ async function averageAgeOfUsers(req, res) {
     try {
         const isConnectedToDatabase = await connectToMongoDB();
         if (isConnectedToDatabase) {
-            const users = await UserWithAge.find({}).select("name age -_id");
-            const userCount = users.length;
-            const userAge_Sum = users.map(user => user.age).reduce((prev, current) => prev + current, 0)
-            return res.status(200).send(`${users}</b><br><br><br><br>The average age of all users in the database is <b>${userAge_Sum / userCount}`);
+            const result = await UserWithAge.aggregate([{
+                '$group': {
+                    "_id": null,
+                    "avgAge": { "$avg": "$age" }
+                }
+            }]);
+            return res.status(200).send(`The average age of all users in the database is <b>${result[0].avgAge}`);
         } else {
             return res.status(404).send("Could not connect to the Database to fetch User's Age!");
         }

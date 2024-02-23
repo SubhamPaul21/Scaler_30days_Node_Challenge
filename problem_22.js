@@ -1,5 +1,5 @@
 const { connectToProductDB } = require('./utils/connectToMongoDB');
-const { Product } = require("./models/product.model")
+const { Product, productWithCategory } = require("./models/product.model")
 
 /**
  * Creates a new product in MongoDB
@@ -11,7 +11,7 @@ async function createProduct(product) {
         const isConnectedToDatabase = await connectToProductDB();
 
         if (isConnectedToDatabase) {
-            const newProduct = new Product(product);
+            const newProduct = new productWithCategory(product);
             await newProduct.save();
             console.log("Product Added to Database");
         } else {
@@ -23,12 +23,13 @@ async function createProduct(product) {
 }
 
 const product = {
-    name: "Tomato",
-    price: 50,
-    quantity: 5,
+    name: "Brinjal",
+    price: 15,
+    quantity: 10,
+    category: "65d853a517e11f40807c56c8"
 }
 
-// createProduct(product);
+createProduct(product);
 
 /**
  * Retrieves all products from MongoDB
@@ -100,4 +101,4 @@ async function deleteProduct(productId) {
     }
 }
 
-deleteProduct("65d6f1c8afc4fa7cb81bcae7");
+// deleteProduct("65d6f1c8afc4fa7cb81bcae7");
